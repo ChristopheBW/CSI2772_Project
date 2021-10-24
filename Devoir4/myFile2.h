@@ -31,63 +31,56 @@ inline SetInt::SetInt(const SetInt &other) {
   size = other.size;
 }
 
-inline void SetInt::add(int element) {
-  const int INCREASE_SIZE = 5;
-
-  // check if the element is already in the list
-  for (int i = 0; i < size; ++i) {
-    if (elem[i] == element) {
-      return;
-    }
-  }
-
-  // check if the list need expansion
-  if (size % INCREASE_SIZE == 0) {
-    int *larger = new int[size + INCREASE_SIZE];
-
-    // copy the old list to the larger list
-    for (int i = 0; i < size; ++i) {
-      larger[i] = elem[i];
-    }
-
-    delete[] elem; // free the memory of old elem
-    elem = larger; // complete list expansion
-  }
-
-  elem[size++] = element;
-  return;
+inline void SetInt::add(int item)
+{
+  // check if item is already in the list
+	if (!contains(item))
+	{
+    // create a new array to store our new (larger) array
+		int* tmp = new int[this->size + 1];
+    // copy all elements from the old to the new array
+		for (int i = 0; i < this->size; ++i)
+		{
+			tmp[i] = this->elem[i];
+		}
+    // finish the list expansion
+		this->elem = tmp;
+    // add the new item to the list
+		this->elem[this->size] = item;
+    // increase size after adding
+		this->size++;
+	}
 }
 
-inline void SetInt::remove(int element) {
-  const int DECREASE_SIZE = 5;
-
-  // try to find the element in the list
-  for (int i = 0; i < size; ++i) {
-    if (elem[i] == element) { // found
-      for (int j = i; j < size - 1; ++j) {
-        elem[j] = elem[j + 1];
-      }
-      --size;
-
-      // check if the list can be reduction
-      if (size % DECREASE_SIZE == 0) {
-        if (size == 0) // if the list doesn't contains any element,
-          elem = NULL; // then it should be null.
-        else {         // otherwise start the list reduction
-          int *smaller = new int[size];
-
-          // copy the old list to the smaller list
-          for (int i = 0; i < size; ++i) {
-            smaller[i] = elem[i];
-          }
-
-          delete[] elem;  // free the memory of old elem
-          elem = smaller; // complete list reduction
-        }
-      }
-      return;
-    }
-  }
+inline void SetInt::remove(int item){
+  // check if only only has one element
+	if (this->size == 1) {
+    // check if this element match item
+		if (this->elem[0] == item) {
+      // then we have a empty list (which should be NULL)
+			this->elem = NULL;
+      // and then decrease size
+			this->size--;
+		} else {
+      // otherwise the element doesn't match item
+			return;
+		}
+	} else {
+    // create a new array to store our new (smaller) array
+		int* temp = new int[this->size - 1];
+    // copy all elements from the old to the new array
+		for (int i = 0, j = 0; i < this->size; ++i) {
+      // if found the item, then skip it
+			if (this->elem[i] != item) {
+				temp[j++] = this->elem[i];
+			}
+		}
+    // finish decrease the list size
+    // and re-assign it to the elem
+		this->elem = temp;
+    // decrease size after removing
+		--(this->size);
+	}
 }
 
 inline bool SetInt::contains(int element) {
@@ -103,3 +96,8 @@ inline bool SetInt::contains(int element) {
 inline int SetInt::nbElem() { return size; }
 
 inline int *SetInt::tabElem() { return elem; }
+
+inline bool SetInt::containsIn(int n, int& index)
+{
+	return this->elem[index] == n;
+}
