@@ -38,25 +38,18 @@ inline void CardsSet::novSet() {
 
 // shuffle by using rand
 inline void CardsSet::shuffle() {
-  Card origin_set[52];
-  int insert_index = 0;
-
-  // copy the origin set
-  for (int i = 0; i < 52; ++i) {
-    origin_set[i] = set[i];
-  }
-
   // seeding by the current time
   srand(time(NULL));
 
   // shuffle
-  for (int range_max = 51; range_max >= 0; --range_max) {
+  for (int i = 51; i > 0; --i) {
     // generate a index in range [0, range_max]
-    int origin_index = ((double)rand() / RAND_MAX) * range_max;
-    // insert this element, increase insert_index for the next insertion
-    set[insert_index++] = origin_set[origin_index];
-    // use the last element (in the range) to replace current element
-    origin_set[origin_index] = origin_set[range_max];
+    int randPos = rand() % i;
+    // get the last card
+    Card tail = set[i];
+    // swap card in the random position with the last card
+    set[i] = set[randPos];
+    set[randPos] = tail;
   }
 }
 

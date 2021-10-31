@@ -17,54 +17,62 @@ private:
 };
 
 inline int Player::countPoints() {
-  int ace_num = 0;
-  int points = 0;
+  int ctr = 0;
+  int aceCtr = 0;
 
-  for (int i = 0; i < inHand.numCards(); ++i) {
-    int val = inHand.lookIn(i + 1).value();
-    if (val == 1)
-      ++ace_num;
-    else
-      points += val;
+  // iter all the cards in hand
+  for (int i = 1; i <= inHand.numCards(); ++i) {
+    int cardVal = inHand.lookIn(i).value();
+    // handle ace cards, consider all ace as value 14
+    if (cardVal == 1) {
+      ++aceCtr;
+      cardVal = 14;
+    }
+    // update hand counter
+    ctr += cardVal;
   }
 
-  if (ace_num != 0) {
-    points += (points + ace_num + 13) > 21 ? ace_num : ace_num + 13;
-  }
-
-  return points;
+  // if the final result exceeds 21, use 1 as the ace value instead of 14
+  return ctr > 21 ? ctr - aceCtr * 13 : ctr;
 }
 
 inline int Player::play() {
-  int points = 0;
+  // init a new game
+  int points;
   inHand.empty();
   bool continuous;
 
+  // play the game
   do {
+    // draw card
     Card card = packet.take();
     inHand.put(card);
     points = countPoints();
 
+    // print card info
     if (!computer) {
       cout << endl << "You get Card: ";
       card.write();
       cout << "\nYour score is " << points << " points" << endl;
     }
 
+    // if current points are more than 21 then gameover
     if (points >= 21)
       break;
 
+    // ask if want additional card
     if (!computer) {
       cout << "Any additional Card ?" << endl;
       char answer[3];
       cin >> answer;
       continuous = answer[0] == 'y';
     } else {
+      // computer will ask additional card if the current point < 15
       continuous = points < 15;
     }
+  } while (continuous); // start another round if player want
 
-  } while (continuous);
-
+  // print computer game result
   if (computer)
     cout << "Computer played the game and got: " << points << endl;
 
