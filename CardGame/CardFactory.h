@@ -43,9 +43,19 @@ namespace cardgame // namespace declaration
             return &cardFactory;
         }
 
+        /**
+         * A method create single card with the correspond card name
+         *
+         * @param name the first char of the card name
+         * If the first character is the same for two cards,
+         * use uppercase for the first one and lowercase for the second one
+         * (For example B for Blue and b for Black).
+         * @return a pointer to the created card
+         */
         static Card *CreateCard(char name) {
             Card *card;
 
+            // match the first char of the card name with
             switch (name) {
                 case 'B':
                     card = new Blue;
@@ -71,7 +81,8 @@ namespace cardgame // namespace declaration
                 case 'g':
                     card = new Garden;
                     break;
-                default:
+                default: // if this char is not defined in our Card
+                    // then the given argument is invalid, throw exception
                     throw std::invalid_argument("This card name is not defined in the game!");
             }
 
@@ -79,8 +90,11 @@ namespace cardgame // namespace declaration
         }
 
     private:
-        CardFactory() = default;
+        // TODO: Define a Deck attribute
 
+        CardFactory() = default; // TODO: Replace this construct with the instruction
+
+        // TODO: Define getDeck()
         // CardFactory &operator=(const CardFactory &) { return *this; }
 
     };
