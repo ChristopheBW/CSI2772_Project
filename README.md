@@ -1,4 +1,4 @@
-# CSI2772A
+# CSI2772A Group23
 
 ## Student info
 
@@ -6,7 +6,7 @@
 - Xiang Li 300056427
 
 
-## Project Status
+## Project
 
 ### Card (4 marks)
 
