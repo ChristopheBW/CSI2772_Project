@@ -28,7 +28,7 @@ namespace cardgame // namespace declaration
          *   CardFactory cardFactory();
          * because the constructor is private (RunTimeError), or
          *   CardFactory *pCardFactory = CardFactory::getFactory()
-         * because of it will return a static object (Bad habit).
+         * because it will return a static object (Bad habit).
          *
          * When you want to obtain the only instance of this factory,
          * the correct usage is:
