@@ -428,7 +428,7 @@ namespace cardgame // namespace declaration
      * @param c the card to insert in the stream
      * @return the stream inserted
      */
-    std::ostream &operator<<(std::ostream &os, const Card &c) {
+    inline std::ostream &operator<<(std::ostream &os, const Card &c) {
         c.print(os);
         return os;
     }
