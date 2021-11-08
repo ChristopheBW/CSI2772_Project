@@ -24,17 +24,15 @@ namespace cardgame // namespace declaration
          *
          * This is a factory class, only one instance can ever be instantiated.
          *
-         * So CardFactory should NOT be created as an object like:
-         *   CardFactory cardFactory();
-         * because the constructor is private (RunTimeError), or
-         *   CardFactory *pCardFactory = CardFactory::getFactory()
-         * because it will return a static object (Bad habit).
+         * So CardFactory should **NOT** be created as an object like:
+         *   CardFactory cardFactory(); // ERROR! private constructor
          *
          * When you want to obtain the only instance of this factory,
          * the correct usage is:
          *   CardFactory::getFactory()
-         * as a statement directly, for example, to create a new card Blue:
-         * Card *card = cardgame::CardFactory::CreateCard('B');
+         * for example:
+         *   CardFactory *pCardFactory = CardFactory::getFactory();
+         * then pCardFactory is the pointer to the only instance
          *
          * @return a pointer to the only instance of CardFactory
          */
@@ -90,12 +88,6 @@ namespace cardgame // namespace declaration
         }
 
     private:
-        // TODO: Define a Deck attribute
-
-        CardFactory() = default; // TODO: Replace this construct with the instruction
-
-        // TODO: Define getDeck()
-        // CardFactory &operator=(const CardFactory &) { return *this; }
 
     };
 }
