@@ -12,7 +12,10 @@
 #ifndef CARDGAME_CARDFACTORY_H // header file OVR guard
 #define CARDGAME_CARDFACTORY_H // define guard
 
-#include "Card.h" // include base class 'Card' and all of its derived classes
+#include <map>       // represent the table
+#include <random>    // random engine in shuffle
+#include <ctime>     // use current time as seed in shuffle
+#include "Card.h"    // include base class 'Card' and all of its derived classes
 
 namespace cardgame // namespace declaration
 {
@@ -87,8 +90,51 @@ namespace cardgame // namespace declaration
             return card;
         }
 
-    private:
+        /**
+         * Shuffle the deck and return a deck with all 104 bean cards
+         *
+         * @return a deck with all 104 bean cards (shuffled)
+         */
+        Deck getDeck() {
+            // setting up a random engine with seeding current time
+            static std::default_random_engine e(time(nullptr));
+            // shuffle the entire deck
+            std::shuffle(_pDeck->begin(), _pDeck->end(), e);
 
+            return *_pDeck;
+        }
+
+    private:
+        // private attribute _pDeck point to a Deck stored all cards
+        Deck *_pDeck;
+
+        // private constructor
+        CardFactory() {
+            // init a new Deck
+            _pDeck = new Deck();
+
+            // the table represented in the instruction file page 2
+            // stored as map for the efficient and easy modification in the future
+            std::map<char, int> initTable = {
+                    {'B', 20},
+                    {'C', 18},
+                    {'S', 16},
+                    {'G', 14},
+                    {'s', 12},
+                    {'b', 10},
+                    {'R', 8},
+                    {'g', 6}
+            };
+
+            // fill the deck with the initTable
+            for (auto &bean: initTable) {
+                // add the beans to the deck
+                for (int count = 0; count < bean.second; ++count) {
+                    // use factory method to create the desire card and push it to the deck
+                    _pDeck->push_back(CardFactory::CreateCard(bean.first));
+                }
+            }
+        }
     };
 }
 
