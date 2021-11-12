@@ -23,20 +23,18 @@ Note:
 
 > Assigned to: Bowen Zeng
 
-**Status:** Pending 
+**Status:** Completed
 
 ---
 
 Note:
-- This class is partial functional
-- `CreateCard()` is a new method I created to help you in Deck constructor
 
 
 ### Deck (2 marks)
 
 > Assigned to: Xiang Li
 
-**Status:** High Priority Task (Required by CardFactory)
+**Status:** Completed
 
 ---
 
