@@ -12,7 +12,9 @@
 #ifndef CARDGAME_CARDFACTORY_H // header file OVR guard
 #define CARDGAME_CARDFACTORY_H // define guard
 
+#include <vector>    // for the derived class Deck
 #include <map>       // represent the table
+#include <algorithm> // use for shuffle
 #include <random>    // random engine in shuffle
 #include <ctime>     // use current time as seed in shuffle
 #include "Card.h"    // include base class 'Card' and all of its derived classes
@@ -89,6 +91,39 @@ namespace cardgame // namespace declaration
 
             return card;
         }
+
+        class Deck : public std::vector<Card *> {
+        public:
+            //Default constructor
+            Deck() = default;
+            //Constructor which accepts an istream and reconstruct the Deck from file
+            Deck(std::istream& in, const CardFactory* factory) {
+                //CardFactory *pCardFactory = CardFactory::getFactory();
+
+                //while input stream not empty, keep reading and insert new cards at the back of deck
+                while (!in.eof()) {
+                    this->push_back(CardFactory::CreateCard(in.get()));
+                }
+            }
+
+            //Remove and return the top card from deck
+            Card* draw() {
+                Card* ret = nullptr;
+                if (!this->empty()) {
+                    ret = this->front();
+                    this->erase(this->begin());
+                }
+                return ret;
+            }
+
+            //print the deck to the output stream
+            static void print(std::ostream& out, Deck& d) {
+                for (int i = 0; i < (int)d.size(); ++i) {
+                    std::cout << d.at(i);
+                }
+            }
+
+        };
 
         /**
          * Shuffle the deck and return a deck with all 104 bean cards
