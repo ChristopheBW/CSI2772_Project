@@ -5,8 +5,13 @@
  * Developed for the CSI2772A Group32 Project.
  *
  * This header include the factory class 'CardFactory'
+ * and class 'Deck' inside of it.
  *
  * Created by Bowen Zeng in Nov 8 2021
+ * Implementation:
+ *  - CardFactory: Bowen Zeng
+ *  - Deck: Xiang Li
+ *
  */
 
 #ifndef CARDGAME_CARDFACTORY_H // header file OVR guard
@@ -92,23 +97,34 @@ namespace cardgame // namespace declaration
             return card;
         }
 
+        // Deck: store a suite of cards
         class Deck : public std::vector<Card *> {
         public:
             //Default constructor
             Deck() = default;
-            //Constructor which accepts an istream and reconstruct the Deck from file
-            Deck(std::istream& in, const CardFactory* factory) {
-                //CardFactory *pCardFactory = CardFactory::getFactory();
 
+            /**
+             * Constructor which accepts an istream and reconstruct the Deck from file
+             *
+             * @param in the input (file) stream of the stored data
+             * @param factory a pointer point to the CardFactory
+             */
+            Deck(std::istream &in, const CardFactory *factory) {
                 //while input stream not empty, keep reading and insert new cards at the back of deck
                 while (!in.eof()) {
-                    this->push_back(CardFactory::CreateCard(in.get()));
+                    char c = (char) in.get();
+                    if (std::isalpha(c))
+                        this->push_back(CardFactory::CreateCard(c));
                 }
             }
 
-            //Remove and return the top card from deck
-            Card* draw() {
-                Card* ret = nullptr;
+            /**
+             * Remove and return the top card from deck
+             *
+             * @return the top card from deck
+             */
+            Card *draw() {
+                Card *ret = nullptr;
                 if (!this->empty()) {
                     ret = this->front();
                     this->erase(this->begin());
@@ -116,11 +132,18 @@ namespace cardgame // namespace declaration
                 return ret;
             }
 
-            //print the deck to the output stream
-            static void print(std::ostream& out, Deck& d) {
-                for (int i = 0; i < (int)d.size(); ++i) {
-                    std::cout << d.at(i);
+            /**
+             * Insert the deck to the output stream
+             *
+             * @param os the output (file) stream
+             * @param d this Deck
+             * @return the inserted output stream
+             */
+            friend std::ostream &operator<<(std::ostream &os, const Deck &d) {
+                for (int i = 0; i < (int) d.size(); ++i) {
+                    os << *(d.at(i));
                 }
+                return os;
             }
 
         };
