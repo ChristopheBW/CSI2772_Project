@@ -63,7 +63,7 @@ namespace cardgame {
         /*Destructor*/
         ~TradeArea() {};
         /*To insert all cards in the TradeArea to an ostream.*/
-        friend void print(ostream& out, TradeArea&) {
+        friend void print(std::ostream& out, TradeArea& td) {
             cout << "Trade Area [ ";
             for (auto v : td.trade_area) {
                 v->print(out);

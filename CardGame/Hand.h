@@ -55,6 +55,7 @@ namespace cardgame {
                 advance(itr, index);
                 hand.erase(itr);
             }
+            return pCard;
         }
 
         //Getter for hand
