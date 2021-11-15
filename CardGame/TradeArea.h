@@ -16,6 +16,9 @@ namespace cardgame {
 
     class TradeArea {
     public:
+        //Default constructor
+        TradeArea() = default;
+
         /*Constructor*/
         TradeArea(std::istream& in, const  CardFactory* factory) {
             while (!in.eof()) {
