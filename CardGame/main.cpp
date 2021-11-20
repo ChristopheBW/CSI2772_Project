@@ -3,6 +3,7 @@
 #include "Card.h"
 #include "CardFactory.h"
 #include "TradeArea.h"
+#include "Hand.h"
 
 using namespace cardgame;
 using namespace std;
@@ -25,20 +26,15 @@ int main() {
     ifstream infile;
     infile.open("save.txt");
 
-    TradeArea *tradeArea = new TradeArea(infile, pCardFactory);
-    cout << *tradeArea << endl;
+    Hand *hand = new Hand(infile, pCardFactory);
 
+    Card *c = hand->play();
 
-    Card *d1 = tradeArea->trade("Blue");
+    cout << (*hand)[2]->getName() << endl;
 
+    cout << *hand << endl;
 
-    if (d1 == nullptr)
-        cout << "NULL" << endl;
-    cout << d1->getName() << endl;
-
-
-    cout << tradeArea->numCards() << endl;
-
+    infile.close();
 
     return 0;
 }

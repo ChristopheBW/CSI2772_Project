@@ -17,73 +17,81 @@ namespace cardgame {
         Hand() = default;
 
         //reconstruct hand from file
-        Hand(std::istream& in, const CardFactory* factory) {
+        Hand(std::istream &in, CardFactory *factory) {
             while (!in.eof()) {
                 char c = (char) in.get();
                 if (std::isalpha(c)) {
-                    hand.push_back(CardFactory::CreateCard(c));
+                    hand.push_back(factory->CreateCard(c));
                 }
             }
         }
 
         //Adds the card to the rear of the hand.
-        Hand& operator+=(Card* c) {
+        Hand &operator+=(Card *c) {
             hand.push_back(c);
             return *this;
         }
 
         //Returns and removes the top card from the player's hand.
-        Card* play() {
-            Card* pCard = nullptr;
+        Card *play() {
+            Card *pCard = nullptr;
+
             if (!hand.empty()) {
                 pCard = hand.front();
                 hand.pop_front();
             }
+
             return pCard;
         }
 
         //Returns but does not remove the top card from the player's hand.
-        Card* top() {
+        Card *top() {
             return hand.front();
         }
 
         //Returns and removes the Card at a given index.
-        Card* operator[](int index) {
-            Card* pCard = hand.front() + index;
+        Card *operator[](int index) {
+            Card *pCard = nullptr;
+
             if (!hand.empty() && hand.size() >= unsigned(index)) {
                 auto itr = hand.begin();
                 advance(itr, index);
+                pCard = *itr;
                 hand.erase(itr);
             }
+
             return pCard;
         }
 
         //Getter for hand
-        std::list<Card*>& getHand() { return hand; }
+        std::list<Card *> &getHand() { return hand; }
 
         //Destructor
-        ~Hand() {};
+        ~Hand() {
+            hand.~list();
+        };
 
         //To insert all the cards in the Hand to an ostream.
-        friend void print(std::ostream& out,Hand& h) {
+        friend std::ostream &operator<<(std::ostream &out, Hand &h) {
             out << "Cards in Hand: ";
-            for (auto& c : h.getHand()) {
-                out << c << " ";
-            }
-            out << " " << std::endl;
-        }
 
+            for (auto *c: h.getHand()) {
+                out << c->getName() << " ";
+            }
+
+            out << " " << std::endl;
+
+            return out;
+        }
 
 
     private:
         /*Stores all the card in the players hand.*/
-        std::list<Card*> hand;
+        std::list<Card *> hand;
     };
 
 
 }
-
-
 
 
 #endif //CSI2772_PROJECT_HAND_H;

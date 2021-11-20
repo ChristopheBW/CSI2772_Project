@@ -11,7 +11,6 @@
 #define CSI2772_PROJECT_TRADEAREA_H
 
 namespace cardgame {
-    typedef std::list<Card *> CardList;
 
     class TradeArea {
     public:
@@ -47,6 +46,7 @@ namespace cardgame {
         /*Removes a card of the corresponding bean name from the trade Area*/
         Card *trade(const std::string &name) {
             Card *pCard = nullptr;
+
             for (auto iter = trade_area.begin(); iter != trade_area.end(); ++iter) {
                 if ((*iter)->getName() == name) {
                     pCard = *iter;
@@ -64,7 +64,7 @@ namespace cardgame {
         }
 
         /*Returns all the cards in the TradeArea*/
-        CardList getTradeArea() { return trade_area; };
+        std::list<Card *> getTradeArea() { return trade_area; };
 
         /*Destructor*/
         ~TradeArea() {
@@ -74,9 +74,11 @@ namespace cardgame {
         /*To insert all cards in the TradeArea to an ostream.*/
         friend std::ostream &operator<<(std::ostream &out, TradeArea &td) {
             out << "Trade Area [ ";
+
             for (auto v: td.trade_area) {
                 v->print(out);
             }
+
             out << " ]" << std::endl;
 
             return out;
@@ -84,7 +86,7 @@ namespace cardgame {
 
     private:
         /*Stores all the card in the TradeArea.*/
-        CardList trade_area;
+        std::list<Card *> trade_area;
     };
 
 }
