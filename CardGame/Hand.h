@@ -59,7 +59,7 @@ namespace cardgame {
         }
 
         //Getter for hand
-        list<Card*>& getHand() { return hand; }
+        std::list<Card*>& getHand() { return hand; }
 
         //Destructor
         ~Hand() {};
@@ -77,7 +77,7 @@ namespace cardgame {
 
     private:
         /*Stores all the card in the players hand.*/
-        list<Card*> hand;
+        std::list<Card*> hand;
     };
 
 

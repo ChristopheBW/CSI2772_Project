@@ -24,7 +24,7 @@ namespace cardgame {
             while (!in.eof()) {
                 char c = (char) in.get();
                 if (std::isalpha(c)) {
-                    trade_area.push_back(CardFactory::CreateCard(c));
+                    trade_area.push_back(factory->CreateCard(c));
                 }
             }
         }
@@ -64,11 +64,11 @@ namespace cardgame {
         ~TradeArea() {};
         /*To insert all cards in the TradeArea to an ostream.*/
         friend void print(std::ostream& out, TradeArea& td) {
-            cout << "Trade Area [ ";
+            std::cout << "Trade Area [ ";
             for (auto v : td.trade_area) {
                 v->print(out);
             }
-            cout << " ]" << endl;
+            std::cout << " ]" << std::endl;
         }
 
     private:
