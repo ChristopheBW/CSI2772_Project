@@ -11,7 +11,7 @@
 #define CSI2772_PROJECT_TRADEAREA_H
 
 namespace cardgame {
-    typedef list<Card*> CardList;
+    typedef std::list<Card*> CardList;
 
 
     class TradeArea {
@@ -44,7 +44,7 @@ namespace cardgame {
             return false;
         }
         /*Removes a card of the corresonding bean name from the trade Area*/
-        Card* trade(string name) {
+        Card* trade(std::string name) {
             Card* pCard = nullptr;
             for (CardList::iterator iter = trade_area.begin(); iter != trade_area.end(); ++iter) {
                 if ((*iter)->getName() == name) {
