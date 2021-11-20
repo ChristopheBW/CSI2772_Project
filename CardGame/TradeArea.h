@@ -11,8 +11,7 @@
 #define CSI2772_PROJECT_TRADEAREA_H
 
 namespace cardgame {
-    typedef std::list<Card*> CardList;
-
+    typedef std::list<Card *> CardList;
 
     class TradeArea {
     public:
@@ -20,7 +19,7 @@ namespace cardgame {
         TradeArea() = default;
 
         /*Constructor*/
-        TradeArea(std::istream& in, const  CardFactory* factory) {
+        TradeArea(std::istream &in, CardFactory *factory) {
             while (!in.eof()) {
                 char c = (char) in.get();
                 if (std::isalpha(c)) {
@@ -30,45 +29,57 @@ namespace cardgame {
         }
 
         /*Adds a card to the TradeArea*/
-        TradeArea& operator+=(Card* card) {
+        TradeArea &operator+=(Card *card) {
             trade_area.push_back(card);
             return *this;
         }
-        /*Returns true if the card can be leaglly added to the Trade Area*/
-        bool legal(Card* card) {
-            for (Card* c : trade_area) {
+
+        /*Returns true if the card can be legally added to the Trade Area*/
+        bool legal(Card *card) {
+            for (Card *c: trade_area) {
                 if (c->getName() == card->getName()) {
                     return true;
                 }
             }
             return false;
         }
-        /*Removes a card of the corresonding bean name from the trade Area*/
-        Card* trade(std::string name) {
-            Card* pCard = nullptr;
-            for (CardList::iterator iter = trade_area.begin(); iter != trade_area.end(); ++iter) {
+
+        /*Removes a card of the corresponding bean name from the trade Area*/
+        Card *trade(const std::string &name) {
+            Card *pCard = nullptr;
+            for (auto iter = trade_area.begin(); iter != trade_area.end(); ++iter) {
                 if ((*iter)->getName() == name) {
-                    pCard = (*iter);
+                    pCard = *iter;
                     trade_area.erase(iter);
+                    break;
                 }
             }
+
             return pCard;
         }
+
         /*Number of cards currently in the trade Area.*/
         int numCards() {
             return trade_area.size();
         }
+
         /*Returns all the cards in the TradeArea*/
         CardList getTradeArea() { return trade_area; };
+
         /*Destructor*/
-        ~TradeArea() {};
+        ~TradeArea() {
+            trade_area.~list();
+        };
+
         /*To insert all cards in the TradeArea to an ostream.*/
-        friend void print(std::ostream& out, TradeArea& td) {
-            std::cout << "Trade Area [ ";
-            for (auto v : td.trade_area) {
+        friend std::ostream &operator<<(std::ostream &out, TradeArea &td) {
+            out << "Trade Area [ ";
+            for (auto v: td.trade_area) {
                 v->print(out);
             }
-            std::cout << " ]" << std::endl;
+            out << " ]" << std::endl;
+
+            return out;
         }
 
     private:
@@ -77,8 +88,6 @@ namespace cardgame {
     };
 
 }
-
-
 
 
 #endif //CSI2772_PROJECT_TRADEAREA_H

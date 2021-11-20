@@ -60,7 +60,7 @@ namespace cardgame // namespace declaration
          * (For example B for Blue and b for Black).
          * @return a pointer to the created card
          */
-        static Card *CreateCard(char name) {
+        Card *CreateCard(char name) {
             Card *card;
 
             // match the first char of the card name with
@@ -109,12 +109,12 @@ namespace cardgame // namespace declaration
              * @param in the input (file) stream of the stored data
              * @param factory a pointer point to the CardFactory
              */
-            Deck(std::istream &in, const CardFactory *factory) {
+            Deck(std::istream &in, CardFactory *factory) {
                 //while input stream not empty, keep reading and insert new cards at the back of deck
                 while (!in.eof()) {
                     char c = (char) in.get();
                     if (std::isalpha(c))
-                        this->push_back(CardFactory::CreateCard(c));
+                        this->push_back(factory->CreateCard(c));
                 }
             }
 
@@ -147,6 +147,9 @@ namespace cardgame // namespace declaration
             }
 
         };
+
+        CardFactory(CardFactory const&) = delete;
+        void operator=(CardFactory const&)  = delete;
 
         /**
          * Shuffle the deck and return a deck with all 104 bean cards
@@ -193,6 +196,7 @@ namespace cardgame // namespace declaration
                 }
             }
         }
+
     };
 }
 
