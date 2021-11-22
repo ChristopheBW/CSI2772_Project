@@ -20,7 +20,7 @@ namespace cardgame {
             //virtual void insertCard(Card*) = 0;
             std::vector<Card*> cardChain;
             bool addCard(Card* card) {
-                if (cardChain.size() == 0 || typeid(*card) == typeid(*cardChain.front())) {
+                if (cardChain.size() == 0 || typeid(*card) == typeid(*(cardChain.front()))) {
                     cardChain.push_back(card);
                     return true;
                 }
@@ -50,9 +50,7 @@ namespace cardgame {
     class Chain : public Chain_Base {
         protected:
             void printChain(std::ostream& out) const override {
-                //std::cout << "hello" << std::endl;
                 if (cardChain.size() > 0) {
-                    //out << cardChain[0]->getName() << std::endl;
                     for (auto& card : this->cardChain) {
                         out << card->getName() << " ";
                     }
@@ -101,12 +99,6 @@ namespace cardgame {
                 }
                 return ret;
             }
-
-
-
-//            void printChain(std::ostream& out) const {
-//                out << (*this);
-//            }
 
 
     };
