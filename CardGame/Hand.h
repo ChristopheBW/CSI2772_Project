@@ -84,6 +84,12 @@ namespace cardgame {
             return out;
         }
 
+        void print(std::ostream &out) {
+            for (auto *c: this->getHand()) {
+                c->print(out);
+            }
+        }
+
 
     private:
         /*Stores all the card in the players hand.*/

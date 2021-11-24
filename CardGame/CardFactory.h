@@ -141,13 +141,14 @@ namespace cardgame // namespace declaration
              */
             friend std::ostream &operator<<(std::ostream &os, const Deck &d) {
                 for (int i = 0; i < (int) d.size(); ++i) {
-                    os << *(d.at(i));
+                    (d.at(i))->print(os);
                 }
                 return os;
             }
 
         };
 
+        // To avoid create illegal instance
         CardFactory(CardFactory const&) = delete;
         void operator=(CardFactory const&)  = delete;
 

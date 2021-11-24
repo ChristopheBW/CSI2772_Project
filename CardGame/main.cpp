@@ -6,6 +6,7 @@
 #include "Hand.h"
 #include "Chain.h"
 #include "DiscardPile.h"
+#include "Player.h"
 
 using namespace cardgame;
 using namespace std;
@@ -44,31 +45,38 @@ int main() {
 
 
     //Code to test DiscardPile
-    deck.push_back(pCardFactory->CreateCard('b'));
-    deck.push_back(pCardFactory->CreateCard('B'));
-    deck.push_back(pCardFactory->CreateCard('C'));
-    deck.push_back(pCardFactory->CreateCard('R'));
-    deck.push_back(pCardFactory->CreateCard('g'));
-
-    ofstream outfile;
-    outfile.open("save.txt");
-    outfile << deck;
-    outfile.close();
-
-    ifstream infile;
-    infile.open("save.txt");
-
-    DiscardPile* dp = new DiscardPile(infile, pCardFactory);
-    cout << *dp;
-    dp->print(cout);
-    *dp += pCardFactory->CreateCard('B');
-    dp->print(cout);
-    dp->pickUp();
-    dp->print(cout);
-
-    infile.close();
 
 
+    //for (int i = 0; i < 4; ++i) {
+    //deck.push_back(pCardFactory->CreateCard('R'));
+    //}
+
+    //ofstream outfile;
+    //outfile.open("save.txt");
+    //outfile << deck;
+    //outfile.close();
+
+    //ifstream infile;
+    //infile.open("save.txt");
+
+    ifstream player_file;
+    // text in the player_save0.txt: Dave 10 0 CgbRG RRR BB
+    player_file.open("player_save0.txt");
+    Player *player = new Player(player_file, pCardFactory);
+    player_file.close();
+
+    player->printHand(cout, false);
+
+    cout << *player << player->getMaxNumChains() << endl << player->getNumChains() << endl;
+    player->buyThirdChain();
+    cout << *player << player->getMaxNumChains() << endl << player->getNumChains() << endl;
+
+    ofstream player_save;
+    player_save.open("player_save1.txt");
+    player->save(player_save);
+    player_save.close();
+
+    // text in the player_save1.txt should be : Dave 8 1 CgbRG RRR BB
 
     return 0;
 }
