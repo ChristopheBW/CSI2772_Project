@@ -92,7 +92,7 @@ namespace cardgame // namespace declaration
         int getNumCoins() const { return _coins; }
 
         Player &operator+=(int income) {
-            _coins += 1;
+            _coins += income;
             return *this;
         }
 

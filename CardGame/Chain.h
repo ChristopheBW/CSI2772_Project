@@ -6,7 +6,6 @@
 #ifndef CARDGAME_CHAIN_H
 #define CARDGAME_CHAIN_H
 
-
 namespace cardgame {
     class IllegalType : public std::exception {
         const char *what() const noexcept {
