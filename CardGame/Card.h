@@ -33,6 +33,15 @@ namespace cardgame // namespace declaration
         virtual int getCardsPerCoin(int coins) const = 0;
 
         /**
+         * A virtual method to calculate how many coins will receive with
+         * the given numbers of cards
+         *
+         * @param cards the number of cards
+         * @return the coins obtained
+         */
+        virtual int getCoinsWithCards(int cards) const = 0;
+
+        /**
          * A virtual method return the full name of bean card
          * like "Blue", "Red" ...etc defined in the card game
          *
@@ -73,6 +82,25 @@ namespace cardgame // namespace declaration
                     // then the given argument is invalid, throw exception
                     throw std::invalid_argument("The given coins is out of game definition!");
             }
+        }
+
+        /**
+         * Implementation of the virtual method defined in Card
+         *
+         * @param cards the number of cards
+         * @return the coins obtained
+         */
+        int getCoinsWithCards(int cards) const override {
+            if (cards < 4)
+                return 0;
+            else if (cards < 6)
+                return 1;
+            else if (cards < 8)
+                return 2;
+            else if (cards < 10)
+                return 3;
+            else
+                return 4;
         }
 
         /**
@@ -125,6 +153,25 @@ namespace cardgame // namespace declaration
         /**
          * Implementation of the virtual method defined in Card
          *
+         * @param cards the number of cards
+         * @return the coins obtained
+         */
+        int getCoinsWithCards(int cards) const override {
+            if (cards < 3)
+                return 0;
+            else if (cards < 6)
+                return 1;
+            else if (cards < 8)
+                return 2;
+            else if (cards < 9)
+                return 3;
+            else
+                return 4;
+        }
+
+        /**
+         * Implementation of the virtual method defined in Card
+         *
          * @return the name of the card (in this class is "Chili")
          */
         std::string getName() const override {
@@ -167,6 +214,25 @@ namespace cardgame // namespace declaration
                     // then the given argument is invalid, throw exception
                     throw std::invalid_argument("The given coins is out of game definition!");
             }
+        }
+
+        /**
+         * Implementation of the virtual method defined in Card
+         *
+         * @param cards the number of cards
+         * @return the coins obtained
+         */
+        int getCoinsWithCards(int cards) const override {
+            if (cards < 3)
+                return 0;
+            else if (cards < 5)
+                return 1;
+            else if (cards < 7)
+                return 2;
+            else if (cards < 8)
+                return 3;
+            else
+                return 4;
         }
 
         /**
@@ -219,6 +285,25 @@ namespace cardgame // namespace declaration
         /**
          * Implementation of the virtual method defined in Card
          *
+         * @param cards the number of cards
+         * @return the coins obtained
+         */
+        int getCoinsWithCards(int cards) const override {
+            if (cards < 3)
+                return 0;
+            else if (cards < 5)
+                return 1;
+            else if (cards < 6)
+                return 2;
+            else if (cards < 7)
+                return 3;
+            else
+                return 4;
+        }
+
+        /**
+         * Implementation of the virtual method defined in Card
+         *
          * @return the name of the card (in this class is "Green")
          */
         std::string getName() const override {
@@ -266,10 +351,29 @@ namespace cardgame // namespace declaration
         /**
          * Implementation of the virtual method defined in Card
          *
+         * @param cards the number of cards
+         * @return the coins obtained
+         */
+        int getCoinsWithCards(int cards) const override {
+            if (cards < 2)
+                return 0;
+            else if (cards < 4)
+                return 1;
+            else if (cards < 6)
+                return 2;
+            else if (cards < 7)
+                return 3;
+            else
+                return 4;
+        }
+
+        /**
+         * Implementation of the virtual method defined in Card
+         *
          * @return the name of the card (in this class is "Soy")
          */
         std::string getName() const override {
-            return "Soy";
+            return "soy";
         }
 
         /**
@@ -313,10 +417,29 @@ namespace cardgame // namespace declaration
         /**
          * Implementation of the virtual method defined in Card
          *
+         * @param cards the number of cards
+         * @return the coins obtained
+         */
+        int getCoinsWithCards(int cards) const override {
+            if (cards < 2)
+                return 0;
+            else if (cards < 4)
+                return 1;
+            else if (cards < 5)
+                return 2;
+            else if (cards < 6)
+                return 3;
+            else
+                return 4;
+        }
+
+        /**
+         * Implementation of the virtual method defined in Card
+         *
          * @return the name of the card (in this class is "Black")
          */
         std::string getName() const override {
-            return "Black";
+            return "black";
         }
 
         /**
@@ -355,6 +478,25 @@ namespace cardgame // namespace declaration
                     // then the given argument is invalid, throw exception
                     throw std::invalid_argument("The given coins is out of game definition!");
             }
+        }
+
+        /**
+         * Implementation of the virtual method defined in Card
+         *
+         * @param cards the number of cards
+         * @return the coins obtained
+         */
+        int getCoinsWithCards(int cards) const override {
+            if (cards < 2)
+                return 0;
+            else if (cards < 3)
+                return 1;
+            else if (cards < 4)
+                return 2;
+            else if (cards < 5)
+                return 3;
+            else
+                return 4;
         }
 
         /**
@@ -403,10 +545,25 @@ namespace cardgame // namespace declaration
         /**
          * Implementation of the virtual method defined in Card
          *
+         * @param cards the number of cards
+         * @return the coins obtained
+         */
+        int getCoinsWithCards(int cards) const override {
+            if (cards < 2)
+                return 0;
+            else if (cards < 3)
+                return 2;
+            else
+                return 3;
+        }
+
+        /**
+         * Implementation of the virtual method defined in Card
+         *
          * @return the name of the card (in this class is "Garden")
          */
         std::string getName() const override {
-            return "Garden";
+            return "garden";
         }
 
         /**

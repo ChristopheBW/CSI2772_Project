@@ -4,8 +4,6 @@
 
 #include <iostream>
 #include <list>
-#include "Card.h"
-#include "CardFactory.h"
 
 #ifndef CSI2772_PROJECT_HAND_H
 #define CSI2772_PROJECT_HAND_H
@@ -65,6 +63,8 @@ namespace cardgame {
 
         //Getter for hand
         std::list<Card *> &getHand() { return hand; }
+
+        int getNumCard() const { return (int) hand.size(); }
 
         //Destructor
         ~Hand() {

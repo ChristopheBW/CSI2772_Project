@@ -22,7 +22,6 @@
 #include <algorithm> // use for shuffle
 #include <random>    // random engine in shuffle
 #include <ctime>     // use current time as seed in shuffle
-#include "Card.h"    // include base class 'Card' and all of its derived classes
 
 namespace cardgame // namespace declaration
 {
@@ -113,6 +112,9 @@ namespace cardgame // namespace declaration
                 //while input stream not empty, keep reading and insert new cards at the back of deck
                 while (!in.eof()) {
                     char c = (char) in.get();
+                    // if c is the end of current info flag
+                    if (c == '\n')
+                        break;
                     if (std::isalpha(c))
                         this->push_back(factory->CreateCard(c));
                 }
@@ -157,13 +159,13 @@ namespace cardgame // namespace declaration
          *
          * @return a deck with all 104 bean cards (shuffled)
          */
-        Deck getDeck() {
+        Deck *getDeck() {
             // setting up a random engine with seeding current time
             static std::default_random_engine e(time(nullptr));
             // shuffle the entire deck
             std::shuffle(_pDeck->begin(), _pDeck->end(), e);
 
-            return *_pDeck;
+            return _pDeck;
         }
 
     private:

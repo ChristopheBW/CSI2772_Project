@@ -4,8 +4,6 @@
 
 #include <iostream>
 #include <list>
-#include "Card.h"
-#include "CardFactory.h"
 
 #ifndef CSI2772_PROJECT_TRADEAREA_H
 #define CSI2772_PROJECT_TRADEAREA_H
@@ -21,6 +19,9 @@ namespace cardgame {
         TradeArea(std::istream &in, CardFactory *factory) {
             while (!in.eof()) {
                 char c = (char) in.get();
+                // if c is the end of current info flag
+                if (c == '\n')
+                    break;
                 if (std::isalpha(c)) {
                     trade_area.push_back(factory->CreateCard(c));
                 }
@@ -71,12 +72,18 @@ namespace cardgame {
             trade_area.~list();
         };
 
+        void print(std::ostream &out) {
+            for (auto &card: trade_area) {
+                card->print(out);
+            }
+        }
+
         /*To insert all cards in the TradeArea to an ostream.*/
         friend std::ostream &operator<<(std::ostream &out, TradeArea &td) {
             out << "Trade Area [ ";
 
-            for (auto v: td.trade_area) {
-                v->print(out);
+            for (auto &v: td.trade_area) {
+                out << *v << ' ';
             }
 
             out << " ]" << std::endl;

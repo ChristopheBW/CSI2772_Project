@@ -84,18 +84,7 @@ namespace cardgame {
 
         int sell() {
             T card;
-            int ret = 0;
-            int length = cardChain.size();
-            while (length >= card.getCardsPerCoin(1)) {
-                for (int coin = 4; coin > 0; --coin) {
-                    if (length >= card.getCardsPerCoin(coin)) {
-                        length -= card.getCardsPerCoin(coin);
-                        ret += coin;
-                        break;
-                    }
-                }
-            }
-            return ret;
+            return card.getCoinsWithCards(cardChain.size());
         }
 
         void print(std::ostream &out) const override {
@@ -106,6 +95,43 @@ namespace cardgame {
             }
         }
     };
+
+    inline Chain_Base *createChain(char name, std::istream &in, CardFactory *factory) {
+        Chain_Base *chain;
+
+        // match the first char of the card name with
+        switch (name) {
+            case 'B':
+                chain = new Chain<Blue>(in, factory);
+                break;
+            case 'C':
+                chain = new Chain<Chili>(in, factory);
+                break;
+            case 'S':
+                chain = new Chain<Stink>(in, factory);
+                break;
+            case 'G':
+                chain = new Chain<Green>(in, factory);
+                break;
+            case 's':
+                chain = new Chain<Soy>(in, factory);
+                break;
+            case 'b':
+                chain = new Chain<Black>(in, factory);
+                break;
+            case 'R':
+                chain = new Chain<Red>(in, factory);
+                break;
+            case 'g':
+                chain = new Chain<Garden>(in, factory);
+                break;
+            default: // if this char is not defined in our Card
+                // then the given argument is invalid, throw exception
+                throw std::invalid_argument("This card name is not defined in the game!");
+        }
+
+        return chain;
+    }
 }
 
 #endif //CARDGAME_CHAIN_H
