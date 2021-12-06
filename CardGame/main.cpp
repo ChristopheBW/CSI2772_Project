@@ -13,9 +13,11 @@ using namespace cardgame;
 using namespace std;
 
 int main() {
+    // Init the only instance of CardFactory
     CardFactory *pCardFactory = CardFactory::getFactory();
     Table *pTable;
 
+    // Ask for load from file
     char cLoad;
     cout << "[Game Init] Load the previous game? (y/N)" << endl;
     cin >> cLoad;

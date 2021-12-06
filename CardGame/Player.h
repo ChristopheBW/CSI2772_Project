@@ -167,14 +167,28 @@ namespace cardgame // namespace declaration
             }
         }
 
+        /**
+         * Check if hand is empty
+         * @return true if hand is empty
+         */
         bool emptyHand() {
             return _hand.getNumCard() == 0;
         }
 
+        /**
+         * Add a card to hand
+         * @param c card pointer
+         */
         void addToHand(Card *c) {
             _hand += c;
         }
 
+        /**
+         * Add a card to chains, if no chains is available
+         * then ask for sell an old chain
+         * @param c card pointer
+         * @param factory card factory pointer
+         */
         void addToChains(Card *c, CardFactory *factory) {
             for (auto &chain: _chains) {
                 try {
