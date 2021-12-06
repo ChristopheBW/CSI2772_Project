@@ -44,10 +44,14 @@ int main() {
     DiscardPile *pDiscardPile = pTable->getDiscardPile();
 
     // Init game
-    for (int count = 0; count < 5; ++count) {
-        pPlayer1->addToHand(pDeck->draw());
-        pPlayer2->addToHand(pDeck->draw());
+    if (cLoad != 'y' && cLoad != 'Y') {
+        for (int count = 0; count < 5; ++count) {
+            pPlayer1->addToHand(pDeck->draw());
+            pPlayer2->addToHand(pDeck->draw());
+        }
     }
+
+    cout << *pTable << endl;
 
     // Start main loop
     while (!pDeck->empty()) {
