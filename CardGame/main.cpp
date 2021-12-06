@@ -75,6 +75,18 @@ int main() {
         for (int id = 1; id <= 2; ++id) {
             Player *pPlayer = pTable->getPlayer(id); // current player playing the game
             string name = pPlayer->getName(); // current player name
+
+            // ask player buy the third chain
+            if (pPlayer->getNumCoins() >= 2 && pPlayer->getMaxNumChains() < 3) {
+                choice = 'n';
+                cout << "[Third Chain] Would you want to buy the third chain? (y/N): " << endl;
+                cin >> choice;
+                if (choice == 'y' || choice == 'Y') {
+                    pPlayer->buyThirdChain();
+                    cout << "[Third Chain] Now you can have 3 chains.";
+                }
+            }
+
             cout << endl << "[" << name << " - Start Turn] Now is your turn." << endl;
             cout << "[Table Info] " << endl << *pTable << endl; // print the pTable to the screen
             Card *newCard = pDeck->draw(); // draw card
