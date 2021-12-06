@@ -36,7 +36,6 @@ int main() {
         pTable = new Table(name1, name2, pCardFactory);
     }
 
-
     // Init game instances
     Player *pPlayer1 = pTable->getPlayer(1);
     Player *pPlayer2 = pTable->getPlayer(2);
@@ -83,7 +82,7 @@ int main() {
                 pPlayer->printHand(cout, false);
                 cout << endl;
                 cout << "[TradeArea - Operation Request] Add or discard bean cards from the trade area? "
-                        "(Type 'a' for add, 'd' for discard, others for skip change):" << endl;
+                        "(Type 'a' for add, 'd' for discard, 's' for skip change):" << endl;
                 cin >> choice;
                 if (choice == 'a' || choice == 'A') { // choice: add
                     cout << "[TradeArea -  Pick Card Request] Which card would you want to add to your chains? "
@@ -166,6 +165,7 @@ int main() {
                     cout << "[Hand - Pick Discard Card] Which card would you want to discard? "
                             "(Please enter the index of card like 1, 2 or 3; 0 for cancel)" << endl;
                     int index;
+                    cin.ignore(256, '\n');
                     cin >> index;
 
                     if (index == 0) {
@@ -236,8 +236,9 @@ int main() {
                 return 0;
             }
         }
-
     }
 
-    return 1;
+    cout << "[Game Over] " << pPlayer1->getName() << " win the game." << endl;
+
+    return 0;
 }
