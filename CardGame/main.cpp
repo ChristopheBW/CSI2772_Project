@@ -69,7 +69,8 @@ int main() {
         // Playing the game
         for (int id = 1; id <= 2; ++id) {
             Player *pPlayer = pTable->getPlayer(id); // current player playing the game
-            cout << endl << "[" << pPlayer->getName() << " - Start Turn] Now is your turn." << endl;
+            string name = pPlayer->getName(); // current player name
+            cout << endl << "[" << name << " - Start Turn] Now is your turn." << endl;
             cout << "[Table Info] " << endl << *pTable << endl; // print the pTable to the screen
             Card *newCard = pDeck->draw(); // draw card
             cout << "[Draw Card] You draw the card: " << *newCard << endl;
@@ -225,10 +226,18 @@ int main() {
             cout << "[Hand - Card Added] Draw 2 card from deck to your hand." << endl;
             cout << "[Hand Info] ";
             pPlayer->printHand(cout, false);
-            cout << endl << "[" << pPlayer->getName() << " - End Turn] Your turn is over." << endl;
+            cout << endl << "[" << name << " - End Turn] Your turn is over." << endl;
+
+            bool bWin;
+            bWin = pTable->win(name);
+
+            if (bWin) {
+                cout << "[Game Over] " << name << " win the game." << endl;
+                return 0;
+            }
         }
 
     }
 
-    return 0;
+    return 1;
 }

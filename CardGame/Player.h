@@ -52,7 +52,6 @@ namespace cardgame // namespace declaration
             in >> _coins;
             in >> _bThirdChain;
             in.get();
-            std::cout << "[Debug] A1" << std::endl;
 
             // hands info reconstruction
             while (!in.eof()) {
@@ -65,14 +64,11 @@ namespace cardgame // namespace declaration
                     _hand += factory->CreateCard(c);
                 }
             }
-            std::cout << "[Debug] A2" << std::endl;
 
             // chains info reconstruction
             while (!in.eof()) {
                 // get the card type of the chain
                 char c = (char) in.get();
-                std::cout << c << std::endl;
-
 
                 // if c is the end of current info flag
                 if (c == '\n')
@@ -85,7 +81,6 @@ namespace cardgame // namespace declaration
                 // add it to the chains
                 _chains.push_back(chain);
             }
-            std::cout << "[Debug] A3" << std::endl;
 
         }
 

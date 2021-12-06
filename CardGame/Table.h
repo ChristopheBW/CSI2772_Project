@@ -24,16 +24,11 @@ namespace cardgame {
         }
 
         Table(std::istream &in, CardFactory *factory) {
-            std::cout << "[Debug] A" << std::endl;
             player1 = new Player(in, factory);
             player2 = new Player(in, factory);
-            std::cout << "[Debug] B" << std::endl;
             deck = new CardFactory::Deck(in, factory);
-            std::cout << "[Debug] C" << std::endl;
             discardPile = new DiscardPile(in, factory);
-            std::cout << "[Debug] D" << std::endl;
             tradeArea = new TradeArea(in, factory);
-            std::cout << "[Debug] E" << std::endl;
         }
 
         TradeArea *getTradeArea() {
